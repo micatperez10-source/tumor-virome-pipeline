@@ -1,26 +1,29 @@
-import json
-import os
-import sys
+#!/usr/bin/env python3
+import sys, os, json, glob
+from datetime import datetime
 
-def generate_summary(sra_id, output_dir):
-    print(f"--- Analizando resultados para {sra_id} ---")
-    
-    # Simulamos la extracción de métricas que vendrían de FastQC
-    report_data = {
-        "sample_id": sra_id,
-        "status": "Success",
-        "reads_processed": 10000,
-        "quality_score_average": 35.8,
-        "path": os.path.abspath(output_dir)
+def main():
+    sra_id  = sys.argv[1]
+    workdir = sys.argv[2]
+    fastq_files = glob.glob(os.path.join(workdir, "*.fastq"))
+    fastq_info = [{"filename": os.path.basename(f), "size_mb": round(os.path.getsize(f)/(1024*1024), 2)} for f in fastq_files]
+    html_reports = glob.glob(os.path.join(workdir, "*.html"))
+    report = {
+        "pipeline": "tumor-virome-pipeline",
+        "sra_id": sra_id,
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "status": "completed",
+        "fastq_files": fastq_info,
+        "fastq_count": len(fastq_files),
+        "qc_reports": [os.path.basename(h) for h in html_reports],
+        "summary": {
+            "total_fastq_size_mb": round(sum(f["size_mb"] for f in fastq_info), 2),
+            "qc_passed": len(html_reports) > 0
+        }
     }
-    
-    with open(f"{output_dir}/summary_report.json", "w") as f:
-        json.dump(report_data, f, indent=4)
-    
-    print(f"✅ Reporte JSON generado en: {output_dir}/summary_report.json")
+    with open("summary_report.json", "w") as f:
+        json.dump(report, f, indent=2)
+    print("Reporte generado: summary_report.json")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Uso: python report_generator.py <SRA_ID> <OUTDIR>")
-    else:
-        generate_summary(sys.argv[1], sys.argv[2])
+    main()
