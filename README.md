@@ -1,36 +1,29 @@
-# MCF-7 Variant Calling Pipeline
+## MCF-7 Variant Calling Pipeline
 
-Pipeline bioinformático para detección de variantes genómicas en la línea celular de cáncer de mama **MCF-7**, usando datos públicos de NCBI SRA.
+Bioinformatics pipeline for genomic variant detection in the **MCF-7** breast cancer cell line, using public data from NCBI SRA.
 
-## Pregunta biológica
-¿Qué variantes genéticas presenta la línea celular MCF-7 en el cromosoma 22?
+## Biological question
+What genetic variants does the MCF-7 cell line present in chromosome 22?
 
-## Herramientas utilizadas
-- **Nextflow** — orquestación del pipeline
-- **FastQC** — control de calidad de reads
-- **Trimmomatic** — filtrado y trimming de adaptadores
-- **BWA** — alineamiento contra genoma humano GRCh38
-- **Samtools** — procesamiento de alineamientos
+## Tools used
+- **Nextflow** — pipeline orchestration
+- **FastQC** — read quality control
+- **Trimmomatic** — adapter trimming and filtering
+- **BWA** — alignment against human genome GRCh38
+- **Samtools** — processing of alignments
 - **BCFtools** — variant calling
 
-## Resultados (SRR8476839, chr22)
-| Métrica | Valor |
+## Results (SRR8476839, chr22)
+| Metric | Value |
 |---|---|
-| Reads totales | 51,186,014 |
-| Reads alineados | 6.35% (chr22) |
-| SNPs detectados | 89,243 |
-| INDELs detectados | 1,070 |
-| Total variantes | 90,636 |
+| Total reads | 51,186,014 |
+| Aligned reads | 6.35% (chr22) |
+| SNPs detected | 89,243 |
+| INDELs detected | 1,070 |
+| Total variants | 90,636 |
 
-## Cómo correr el pipeline
+## How to run
 ```bash
-git clone https://github.com/micatperez10-source/tumor-virome-pipeline
-cd tumor-virome-pipeline
+git clone [https://github.com/micatperez10-source/mcf7-variant-calling-nf](https://github.com/micatperez10-source/mcf7-variant-calling-nf)
+cd mcf7-variant-calling-nf
 nextflow run main.nf
-```
-
-## Datos
-- Organismo: *Homo sapiens*
-- Línea celular: MCF-7 (adenocarcinoma de mama)
-- Accession: SRR8476839
-- Referencia: GRCh38 cromosoma 22
