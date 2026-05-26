@@ -24,6 +24,7 @@ What genetic variants does the MCF-7 cell line present in chromosome 22?
 
 Getting Started & Reproducibility
 Prerequisites
+
 Java 11 or later
 
 Nextflow
