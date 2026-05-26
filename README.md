@@ -22,8 +22,21 @@ What genetic variants does the MCF-7 cell line present in chromosome 22?
 | INDELs detected | 1,070 |
 | Total variants | 90,636 |
 
-## How to run
-```bash
+Getting Started & Reproducibility
+Prerequisites
+Java 11 or later
+
+Nextflow
+
+Docker (Highly recommended for zero-setup execution)
+
+Installation & Execution
+Clone the repository and run the entire pipeline with a single command. Docker will automatically pull all required bioinformatics tools with correct versions.
+
+Bash
+# Clone the repository
 git clone [https://github.com/micatperez10-source/mcf7-variant-calling-nf](https://github.com/micatperez10-source/mcf7-variant-calling-nf)
 cd mcf7-variant-calling-nf
-nextflow run main.nf
+
+# Run locally using Docker containers
+nextflow run main.nf -profile docker
